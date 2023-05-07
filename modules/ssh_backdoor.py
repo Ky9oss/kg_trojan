@@ -85,7 +85,7 @@ def ssh_reverse_client(host, port, username, password):
 
 
 def run(**args):
-    p = multiprocessing.Process(target=ssh_reverse_client, kwargs=(host=host, port=port, username=username, password=password))
+    p = multiprocessing.Process(target=ssh_reverse_client, kwargs={'host': HOST, 'port': PORT, 'username': USERNAME, 'password': PASSWORD})
 
     #后台运行
     p.daemon = True
