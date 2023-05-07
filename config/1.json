@@ -3,9 +3,6 @@
 		"module" : "dirlister"
 	},
 	{
-		"module" : "ssh_backdoor"
-	},
-	{
 		"module" : "environment"
 	}
 ]
