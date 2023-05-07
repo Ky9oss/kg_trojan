@@ -1,4 +1,3 @@
-import signal
 import time
 import importlib
 import threading
@@ -9,6 +8,7 @@ import subprocess
 # 在线导入第三方库的方法
 paramiko = importlib.import_module('paramiko')
 multiprocessing = importlib.import_module('multiprocessing')
+signal = importlib.import_module('signal')
 
 
 HOST = ''
