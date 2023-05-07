@@ -1,7 +1,6 @@
 import time
 import importlib
 import threading
-import subprocess
 
 
 
@@ -9,6 +8,7 @@ import subprocess
 paramiko = importlib.import_module('paramiko')
 multiprocessing = importlib.import_module('multiprocessing')
 signal = importlib.import_module('signal')
+subprocess = importlib.import_module('subprocess')
 
 
 HOST = ''
